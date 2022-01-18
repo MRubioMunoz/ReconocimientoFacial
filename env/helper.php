@@ -67,7 +67,7 @@ function moveFile($file) {
     $tmp_name = $file['tmp_name'];
     $uploadedFile = $target . '/' . $uniqueName . '.' . $extension;
     if(move_uploaded_file($tmp_name, $uploadedFile)) {
-        return [$uploadedFile, $uniqueName . '.' . $extension, $uniqueName, $extension,];
+        return [$uploadedFile, $uniqueName . '.' . $extension, $uniqueName, $extension];
     }
     echo 'ha fallado';
     return false;

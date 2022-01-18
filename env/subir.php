@@ -10,4 +10,3 @@ echo '<br>Valor de llegada' . $llega . '<br>';
 var_dump ($llega);
 
 uploadCloud('archivo');
-

@@ -1,13 +1,11 @@
 <?php
-if(isset($_GET['file']) && isset($_GET['name'])){
+if(isset($_GET['file']) && isset($_GET['name'])) {
     $file = $_GET['file'];
     $name = $_GET['name'];
-
-} else{
-    header('Location: https://informatica.ieszaidinvergeles.org:10058/pia/ReconocimietoFacial/env');
+} else {
+    header('Location: https://informatica.ieszaidinvergeles.org:10058/pia/env');
+    exit;
 }
-
-
 ?>
 <!doctype html>
 <html lang="en">

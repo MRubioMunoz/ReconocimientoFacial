@@ -74,12 +74,13 @@ function moveFile($file) {
 }
 
 
+
 function uploadFileToBucket($file, $key) {
     $result = false;
     try {
         $s3 = new S3Client([
             'version'     => 'latest',
-            'region'      => $_ENV['region'], 
+            'region'      => $_ENV['region'],
             'credentials' => [
                 'key'    => $_ENV['aws_access_key_id'],
                 'secret' => $_ENV['aws_secret_access_key'],
@@ -96,10 +97,8 @@ function uploadFileToBucket($file, $key) {
     } catch (S3Exception $e) {
         //to see the message: $e->getMessage()
     }
-    echo $result;
     return $result;
 }
-
 
 function detectFaces($name) {
     try{
@@ -115,7 +114,7 @@ function detectFaces($name) {
         $result = $rekognition->DetectFaces(array(
             'Image' => [
                 'S3Object' => [
-                    'Bucket' =>  $_ENV['bucket'],
+                    'Bucket' => $_ENV['bucket'],
                     'Name' => $name,
                 ],
             ],
@@ -123,41 +122,24 @@ function detectFaces($name) {
            )
         );
     } catch(Exception $e) {
-        echo "no lo reconoce";
+        echo $e->getMessage();
         $result = false;
     }
     return $result;
 }
 
-function getFaceValues($data){
+function getFaceValues($data) {
     $faces = [];
-    foreach($data['FaceDetails'] as $index => $value){
+    foreach($data['FaceDetails'] as $index => $value) {
         $face = [];
-        $face['Width'] = $value['BoundingBox']['Width'];
-        $face['Height'] = $value['BoundingBox']['Height'];
-        $face['Left'] = $value['BoundingBox']['Left'];
-        $face['Top'] = $value['BoundingBox']['Top'];
-        $face['Low'] = $value['AgeRange']['Low'];
-        $face['High'] = $value['AgeRange']['High'];
-        $face['Gender'] = $value['Gender']['Value'];
-
+        $face['width']  = $value['BoundingBox']['Width'];
+        $face['height'] = $value['BoundingBox']['Height'];
+        $face['left']   = $value['BoundingBox']['Left'];
+        $face['top']    = $value['BoundingBox']['Top'];
+        $face['low']    = $value['AgeRange']['Low'];
+        $face['high']   = $value['AgeRange']['High'];
+        $face['gender'] = $value['Gender']['Value'];
         $faces[] = $face;
     }
-    echo count($faces);
+    return $faces;
 }
-
-function getUnderAgeFaces($faces) {
-    $result = [];
-    foreach($faces['FaceDetails'] as $face) {
-        if($face['AgeRange']['Low'] < 18) {
-            $row = [];
-            $row['left'] = $face['BoundingBox']['Left'];
-            $row['top'] = $face['BoundingBox']['Top'];
-            $row['width'] = $face['BoundingBox']['Width'];
-            $row['height'] = $face['BoundingBox']['Height'];
-            $result[] = $row;
-        }
-    }
-    return $result;
-}
-?>

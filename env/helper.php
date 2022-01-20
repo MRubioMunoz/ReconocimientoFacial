@@ -143,3 +143,18 @@ function getFaceValues($data) {
     }
     return $faces;
 }
+
+function getUnderAgeFaces($faces) {
+    $result = [];
+    foreach($faces['FaceDetails'] as $face) {
+        if($face['AgeRange']['Low'] < 18) {
+            $row = [];
+            $row['left'] = $face['BoundingBox']['Left'];
+            $row['top'] = $face['BoundingBox']['Top'];
+            $row['width'] = $face['BoundingBox']['Width'];
+            $row['height'] = $face['BoundingBox']['Height'];
+            $result[] = $row;
+        }
+    }
+    return $result;
+}

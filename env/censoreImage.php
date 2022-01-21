@@ -4,8 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$image1 = imagecreatefromjpeg($_POST['file']); 
-$image2 = imagecreatefromjpeg($_POST['file']);
+$image1 = imagecreatefrompng($_POST['file']); 
+$image2 = imagecreatefrompng($_POST['file']);
 
 
 for($i = 0; $i<50; $i++){
@@ -21,10 +21,10 @@ foreach($_POST['x'] as $index => $x){
 }
 
 
-imagejpeg($image2, 'blur' . $_POST['file']);
-imagejpeg($image2, 'blur' . $_POST['file']);
+imagejpeg($image2, $_POST['file']);
+imagejpeg($image2, $_POST['file']);
 imagedestroy($image1);
 imagedestroy($image2);
 
 
-header('Location: blur' . $_POST['file']);
+header('Location:' . $_POST['file']);

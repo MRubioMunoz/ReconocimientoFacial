@@ -66,6 +66,12 @@ function moveFile($file) {
     $extension = pathinfo($name, PATHINFO_EXTENSION);
     $tmp_name = $file['tmp_name'];
     $uploadedFile = $target . '/' . $uniqueName . '.' . $extension;
+    
+    $value = $uploadedFile;
+    
+    setcookie("TestCookie", $value);
+    setcookie("TestCookie", $value, time()+3600);
+    
     if(move_uploaded_file($tmp_name, $uploadedFile)) {
         return [$uploadedFile, $uniqueName . '.' . $extension, $uniqueName, $extension];
     }

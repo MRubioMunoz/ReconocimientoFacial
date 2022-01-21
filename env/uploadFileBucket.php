@@ -17,8 +17,8 @@ use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-$file = 'familia.jpg';
-$name = 'familia.jpg';
+$file = $_COOKIE["TestCookie"];
+$name = $_COOKIE["TestCookie"];
 uploadFileToBucket($file, $name);
 
 header('Location: https://informatica.ieszaidinvergeles.org:10058/pia/ReconocimietoFacial/env/showFile.php?file=' . $file . '&name=' . $name);
